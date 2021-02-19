@@ -1,7 +1,9 @@
+from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.validators import UnicodeUsernameValidator
 
+from ..common import PREFERRED_LANGUAGE_CHOICES
 from ..common.fields import CIEmailField, CICharField
 
 
@@ -56,6 +58,7 @@ class User(AbstractUser):
     )
     # username = None  # Comment this in if NOT wanted usernames, and comment above username field and validator OUT
     email = CIEmailField(_('email address'), unique=True)  # Change to blank is true and not unique if emails not needed
+    preferred_language = models.CharField(max_length=2, choices=PREFERRED_LANGUAGE_CHOICES, default='en')
     # USERNAME_FIELD = 'email'  # Comment out if using usernames
     # REQUIRED_FIELDS = []  # comment this out if change to username
 
@@ -86,6 +89,7 @@ class User(AbstractUser):
             'last_name': self.last_name,
             'username': self.username,
             'email': self.email,
+            'preferred_language': self.preferred_language
         }
 
 
