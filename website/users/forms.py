@@ -3,6 +3,8 @@ from django.contrib.auth import password_validation, get_user_model, forms as ad
 from django.contrib.auth.forms import UsernameField
 from django.utils.translation import ugettext_lazy as _
 
+from website.common import PREFERRED_LANGUAGE_CHOICES
+
 User = get_user_model()
 
 
@@ -20,6 +22,9 @@ class UserCreationForm(forms.ModelForm):
     error_messages = {
         'password_mismatch': _("The two password fields didn't match."),
     }
+
+    preferred_language = forms.ChoiceField(choices=PREFERRED_LANGUAGE_CHOICES)
+
     password1 = forms.CharField(
         label=_("Password"),
         strip=False,

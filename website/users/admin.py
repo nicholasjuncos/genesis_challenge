@@ -14,7 +14,7 @@ class UserAdmin(AuthUserAdmin):
     add_form = UserCreationForm
     fieldsets = (
             ('User Profile', {'fields': ('email', 'username', 'password')}),  # Remove username if only email
-            (_('Personal info'), {'fields': ('first_name', 'last_name')}),
+            (_('Personal info'), {'fields': ('first_name', 'last_name', 'preferred_language')}),
             (_('Permissions'), {
                 'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
             }),

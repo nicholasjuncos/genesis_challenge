@@ -35,7 +35,8 @@ class TestUser(APITestCase):
             'username': 'testman2',
             'email': 'test.man2@example.com',
             'password1': 'MegaPassword1234',
-            'password2': 'MegaPassword1234'
+            'password2': 'MegaPassword1234',
+            'preferred_language': 'en'
         }
         login_data = {
             'username': 'testman2',
@@ -66,7 +67,8 @@ class TestUser(APITestCase):
             'first_name': 'Testing',
             'last_name': 'Woman',
             'email': 'testingwoman@testing.com',
-            'password': 'Password1234'
+            'password': 'Password1234',
+            'preferred_language': 'en'
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -80,7 +82,8 @@ class TestUser(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data,
                          {'username': 'testman', 'email': 'test.man@example.com', 'first_name': 'Test',
-                          'last_name': 'Man', 'full_name': 'Test Man', 'url': 'http://testserver/api/users/testman/'})
+                          'last_name': 'Man', 'full_name': 'Test Man', 'preferred_language': 'en',
+                          'url': 'http://testserver/api/users/testman/'})
 
     def test_user_list(self):
         users = User.objects.all()
