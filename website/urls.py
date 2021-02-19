@@ -21,10 +21,12 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views import defaults as default_views
 from rest_framework.authtoken.views import obtain_auth_token
 
+from . import router
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include(router)),
     path('auth-token/', obtain_auth_token, name='obtain-auth-token'),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls'))
