@@ -69,6 +69,7 @@ EXTERNAL_APPS = [
 LOCAL_APPS = [
     'website.common',
     'website.users',
+    'website.articles',
 ]
 
 # All Apps together
