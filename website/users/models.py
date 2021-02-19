@@ -68,7 +68,7 @@ class User(AbstractUser):
     # objects = UserManager()  # Comment out for username validation
 
     def __str__(self):
-        return self.email  # Change to email in future
+        return self.username  # Change to email if needed
         # if self.name:
         #     return self.name
         # if self.first_name and self.last_name:

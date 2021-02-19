@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 
-from rest_framework import status, filters
+from rest_framework import status, filters, permissions
 from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
@@ -18,6 +18,7 @@ class UserViewSet(ModelViewSet):
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     filterset_fields = ['username', 'email', 'first_name', 'last_name', ]
     search_fields = ['username', 'email', 'first_name', 'last_name', ]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self, *args, **kwargs):
         # allow superusers to see all users

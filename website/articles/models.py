@@ -20,9 +20,9 @@ class Article(TimeStampedModel, StatusModel):
     def __str__(self):
         return '{}, {}, {}, {}'.format(self.title, self.author, self.created, self.status)
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if self.status == 'Published' and not self.publication_date:
             self.publication_date = timezone.now()
         if self.status == 'Draft':
             self.publication_date = None
-        super().save()
+        super().save(*args, **kwargs)

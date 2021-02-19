@@ -3,7 +3,7 @@ from django.contrib.auth import password_validation, get_user_model, forms as ad
 from django.contrib.auth.forms import UsernameField
 from django.utils.translation import ugettext_lazy as _
 
-from website.common import PREFERRED_LANGUAGE_CHOICES
+from ..common import PREFERRED_LANGUAGE_CHOICES
 
 User = get_user_model()
 
