@@ -23,10 +23,10 @@ class UserAdmin(AuthUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'username', 'password1', 'password2'),  # Remove username if only email
+            'fields': ('email', 'username', 'password1', 'password2', 'preferred_language'),
         }),
     )
-    list_display = ('email', 'username', 'full_name', 'is_staff', 'is_superuser')  # Remove username if only email
-    list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
+    list_display = ('email', 'username', 'full_name', 'is_staff', 'is_superuser', 'preferred_language')
+    list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups', 'preferred_language')
     search_fields = ('first_name', 'last_name', 'email', 'username')
-    ordering = ('email', 'username')  # Remove username if only email
+    ordering = ('email', 'username', 'preferred_language')  # Remove username if only email
