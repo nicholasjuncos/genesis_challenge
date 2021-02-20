@@ -10,6 +10,7 @@ User = get_user_model()
 
 
 class Article(TimeStampedModel, StatusModel):
+    # Status can be Draft or Published
     status = models.CharField(max_length=9, choices=ARTICLE_STATUS_CHOICES, default='Draft')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)

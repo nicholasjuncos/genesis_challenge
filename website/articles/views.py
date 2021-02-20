@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 
+from . import PREFERRED_LANGUAGE_EMPTY_LIST_MESSAGE, EMPTY_LIST_MESSAGE
 from .models import Article
 from .permissions import IsAuthorOrReadOnly
 from .serializers import ArticleSerializer, AdminArticleSerializer
@@ -50,10 +51,9 @@ class ArticleViewSet(ModelViewSet):
         # below detects if a language is filtered. If not, and the queryset is empty, returns a message
         language = self.request.GET.get('language')
         if not language:
-            message = 'There are no articles for your preferred language! Please add a filter for another language to' \
-                      ' possibly view other articles.'
+            message = PREFERRED_LANGUAGE_EMPTY_LIST_MESSAGE
         else:
-            message = 'There are no articles! Please add/edit language filter to possibly view other articles.'
+            message = EMPTY_LIST_MESSAGE
         if not any(serializer.data):
             headers = self.get_success_headers(serializer.data)
             return Response({'Message': message}, status=status.HTTP_204_NO_CONTENT, headers=headers)
