@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase, APIRequestFactory
 
-from . import PREFERRED_LANGUAGE_EMPTY_LIST_MESSAGE
+from . import PREFERRED_LANGUAGE_EMPTY_LIST_MESSAGE, EMPTY_LIST_MESSAGE
 from .models import Article
 from .serializers import ArticleSerializer
 
@@ -135,3 +135,56 @@ class TestArticles(APITestCase):
         self.client.credentials(HTTP_AUTHORIZATION='Token {}'.format(self.token2.key))
         response4 = self.client.get('/api/articles/2/')
         self.assertEqual(response4.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_article_search(self):
+        """
+        Tests searching of an article for several users, and anonymous user.
+        """
+        url = reverse('api:article-list') + '?search=Test3'
+        articles = Article.objects.filter(title='Test3')
+        request = self.factory.get('/')
+        serializer = ArticleSerializer(articles, context={'request': request}, many=True)
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, serializer.data)
+        self.client.credentials(HTTP_AUTHORIZATION='Token {}'.format(self.token.key))
+        response2 = self.client.get(url, format='json')
+        self.assertEqual(response2.status_code, status.HTTP_200_OK)
+        self.assertEqual(response2.data, serializer.data)
+        self.assertNotEqual(response2.data, {'Message': PREFERRED_LANGUAGE_EMPTY_LIST_MESSAGE})
+        self.client.credentials()
+        self.client.credentials(HTTP_AUTHORIZATION='Token {}'.format(self.token2.key))
+        response3 = self.client.get(url, format='json')
+        self.assertEqual(response3.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertNotEqual(response3.data, serializer.data)
+        self.assertEqual(response3.data, {'Message': PREFERRED_LANGUAGE_EMPTY_LIST_MESSAGE})
+        self.client.credentials()
+
+    def test_article_filter(self):
+        """
+        Tests filtering for an article for several users, and anonymous user.
+        """
+        url = reverse('api:article-list') + '?title=Test3&post=&author__username=&language=es'
+        url2 = reverse('api:article-list') + '?title=Test3&post=&author__username=&language=en'
+        articles = Article.objects.filter(title='Test3', language='es')
+        request = self.factory.get('/')
+        serializer = ArticleSerializer(articles, context={'request': request}, many=True)
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, serializer.data)
+        self.client.credentials(HTTP_AUTHORIZATION='Token {}'.format(self.token.key))
+        response2 = self.client.get(url, format='json')
+        self.assertEqual(response2.status_code, status.HTTP_200_OK)
+        self.assertEqual(response2.data, serializer.data)
+        self.assertNotEqual(response2.data, {'Message': EMPTY_LIST_MESSAGE})
+        self.client.credentials()
+        self.client.credentials(HTTP_AUTHORIZATION='Token {}'.format(self.token2.key))
+        response3 = self.client.get(url, format='json')
+        self.assertEqual(response3.status_code, status.HTTP_200_OK)
+        self.assertEqual(response3.data, serializer.data)
+        self.assertNotEqual(response3.data, {'Message': EMPTY_LIST_MESSAGE})
+        response4 = self.client.get(url2, format='json')
+        self.assertEqual(response4.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertNotEqual(response4.data, serializer.data)
+        self.assertEqual(response4.data, {'Message': EMPTY_LIST_MESSAGE})
+        self.client.credentials()
