@@ -69,7 +69,7 @@ Runserver with the Pycharm run configuration, or `python manage.py runserver`
 ### Mailhog
 
 Mailhog is used for the sending and receiving of emails in dev environment. Simply install online and input `mailhog` 
-in a terminal to activate. You can see the emails sent and received at http://0.0.0.0:8025. For developoment purposes.
+in a terminal to activate. You can see the emails sent and received at http://0.0.0.0:8025. For development purposes.
 
 ### Sentry
 [Sentry](https://sentry.io/) logging is recommended for production.
@@ -88,12 +88,12 @@ with django **MUST CREATE SUPERUSER FIRST**.
 For Authentication API purposes, 
 [http://127.0.0.1:8000/dj-rest-auth/registration/](http://127.0.0.1:8000/dj-rest-auth/registration/) to register, 
 [http://127.0.0.1:8000/dj-rest-auth/login/](http://127.0.0.1:8000/dj-rest-auth/login/) for login, and 
-[http://127.0.0.1:8000/dj-rest-auth/login/](http://127.0.0.1:8000/dj-rest-auth/logout/) for logout. 
+[http://127.0.0.1:8000/dj-rest-auth/logout/](http://127.0.0.1:8000/dj-rest-auth/logout/) for logout. 
 After retrieving a login token from dj-rest-auth, add it as an **Authorization** Header as such: `Token LOGIN_TOKEN`.
 You can also go to [http://127.0.0.1:8000/dj-rest-auth/](http://127.0.0.1:8000/dj-rest-auth/) to see other url options 
 in the debug message of the 404 page.
 
-To interact with the custom API features, navigate to [http://127.0.0.1:8000/api](http://127.0.0.1:8000/api/). 
+To interact with the custom API features, navigate to [http://127.0.0.1:8000/api/](http://127.0.0.1:8000/api/). 
 Superusers will have more ability for interacting with the users and articles.
 
 ### Testing

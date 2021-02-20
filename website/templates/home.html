@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Genesis Challenge</title>
+</head>
+<body class="container py-3">
+<h1>Genesis Challenge</h1>
+<p>Code response for Genesis Research.</p>
+<h2>Structure</h2>
+<p>
+  Settings are located in config/settings/ folder.
+  <code>base.py</code>contains most generic settings.
+  <code>local.py</code> is for development and <code>production.py</code> is for an actual production website.
+  THIS PROJECT DEFAULTS TO <code>local.py</code>! Create a <code>.env</code> file and
+  place in project root directory with settings to configure for production! Make sure you have
+  <code>ENVIRONMENT=production</code> if using for production website! See details below.
+  This .env is configured through the use of the library
+  <a href="https://pypi.org/project/python-decouple/" target="_blank">python-decouple</a>.
+</p>
+<h2>Installation</h2>
+<p>
+  Ensure you have installed python 3.8.
+</p>
+<ol>
+  <li>Clone from the repository <code>git clone https://github.com/nicholasjuncos/genesis_challenge.git</code></li>
+  <li>
+    <b>FOR PRODUCTION ONLY</b>: Copy and paste your <code>.env</code> file to this Project's Root Folder. See
+    <code>.env_example</code> for details
+  </li>
+  <li>
+    Create a virtualenv, for terminal: <code>python3 -m venv ./venv</code> or utilizing pycharm
+    (see readme for details)
+  </li>
+  <li>Activate your environment, <code>source ./venv/bin/activate</code></li>
+  <li>Install the requirements. <code>pip install -r requirements.txt</code></li>
+  <li>Run migrations with <code>./manage.py migrate</code> in activated environment in terminal.</li>
+  <li>Run development server <code>./manage.py runserver</code></li>
+</ol>
+
+<h2>Extra Functionality</h2>
+<p>
+  Mailhog is used for the sending and receiving of emails in dev environment. Simply install online and input
+  <code>mailhog</code> in a terminal to activate. You can see the emails sent and received at
+  <a href="http://0.0.0.0:8025" target="_blank">http://0.0.0.0:8025</a>. For developoment purposes only.
+</p>
+
+<h2>Testing and playing with the API</h2>
+<h3>Playing with the API</h3>
+<p>
+  Activate your local environment and run <code>python manage.py createsuperuser</code> and input data to access the
+  admin page.
+</p>
+<p>Navigate to <a href="127.0.0.1:8000/admin/" target="_blank">http://127.0.0.1:8000/admin/</a> to login with
+  superuser info and interact directly with django. <b>MUST CREATE SUPERUSER FIRST</b>.</p>
+<p>
+  For Authentication API purposes,
+  <a href="http://127.0.0.1:8000/dj-rest-auth/registration/">http://127.0.0.1:8000/dj-rest-auth/registration/</a>
+  to register, <a href="http://127.0.0.1:8000/dj-rest-auth/login/">http://127.0.0.1:8000/dj-rest-auth/login/</a>
+  for login, and
+  <a href="http://127.0.0.1:8000/dj-rest-auth/logout/">http://127.0.0.1:8000/dj-rest-auth/logout/</a> for logout.
+  After retrieving a login token from dj-rest-auth, add it as an <b>Authorization</b> Header as such:
+  <code>Token LOGIN_TOKEN</code>. You can also go to <a href="http://127.0.0.1:8000/dj-rest-auth/">
+  http://127.0.0.1:8000/dj-rest-auth/</a> to see other url options in the debug message of the 404 page.
+</p>
+<p>
+  To interact with the custom API features, navigate to
+  <a href="http://127.0.0.1:8000/api/">http://127.0.0.1:8000/api/</a>.
+  Superusers will have more ability for interacting with the users and articles.
+</p>
+<h3>Testing the project and the API</h3>
+<p>
+  Simply navigate to your project root directory, activate your local environment, and run
+  <code>python manage.py test</code>
+</p>
+</body>
+</html>

@@ -20,11 +20,13 @@ from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views import defaults as default_views
 from rest_framework.authtoken.views import obtain_auth_token
+from django.views.generic import TemplateView
 
 from . import router
 
 
 urlpatterns = [
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('admin/', admin.site.urls),
     path('api/', include(router)),
     path('auth-token/', obtain_auth_token, name='obtain-auth-token'),
